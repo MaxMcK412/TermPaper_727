@@ -7,32 +7,6 @@ output:
   pdf_document:
     toc: yes
     df_print: kable
-references:
-- id: Wickham2014
-  title: Tidy Data
-  author:
-  - family: Wickham
-    given: Hadley
-  container-title: Journal of Statistical Software
-  volume: 59
-  issue: 10
-  page: 1-23
-  type: article-journal
-  issued:
-    year: 2014
-- id: Baumer2017
-  title: Modern Data Science with R
-  author:
-  - family: Baumer
-    given: Benjamin S.
-  - family: Kaplan
-    given: Daniel T.
-  - family: Horton
-    given: Nicholas J.
-  type: book
-  publisher: Chapman \& Hall/CRC Press.
-  issued:
-    year: 2017
 ---
 
 ```{r, include = FALSE}
@@ -50,36 +24,44 @@ Note that compiled term paper (the PDF) is supposed to be more text-centered tha
 
 This section describes the data sources and the data gathering process.
 
+We found our data from several sources. We found the 2018 turnout data for each
+state on "Statista.com," which did the work of gathering turnout data from each 
+states Secretary of State office. Similarly, we found the 2014 midterm turnout
+data from "electproject.org," which also collected the data from Secretary of
+State offices. Finally,the 2022 turnout data is also from 
+"electproject.orgthefulcrum.us." Finally, we found youth turnout data for 2014 &
+2018 from "circle.tufts.edu," which were estimates collected from exit polls.
+
+We then collected all of this data into one Excel spreadsheet. We organized the
+spreadsheet such that the columns represented variables -- we had one with the 
+state names, three with turnout for each midterm, and two for the youth turnouts
+in 2014 and 2018. The code chunk below imports the Excel data we collected and
+organized.
 ```{r}
 # A code chunk that exemplifies the data gathering process
-```
-
-```{r, include = FALSE}
-# Additional code chunks that repeat tasks or do basic things can be hidden
+library(usmap)
+library(ggplot2)
+library(readxl)
+library(readxl) 
+SURV727_Final<-read_excel("C:/Users/maxmc/OneDrive/Desktop/SURV727_Final.xlsx")
+View(SURV727_Final)
 ```
 
 ## Results
 
 This section presents the main results.
 
-### Data exploration
 
-The results section may have a data exploration part, but in general the structure here depends on the specific project.
-
-```{r}
-# What happens here depends on the specific project
-```
-
-```{r}
-# What happens here depends on the specific project
-```
 
 ### Analysis
 
 This section presents the main results, such as (for example) stats and graphs that show relationships, model results and/or clustering, PCA, etc.
 
 ```{r}
-# What happens here depends on the specific project
+## Visualizing the turnout in 2022
+plot_usmap(data = SURV727_Final, values = "turnout_22", color = "black") + 
+  scale_fill_continuous(name = "2022 Turnout Percentage", label = scales::comma) + 
+  theme(legend.position = "right")
 ```
 
 ```{r}
@@ -92,6 +74,7 @@ This section presents the main results, such as (for example) stats and graphs t
 
 ## Discussion
 
-This section summarizes the results and may briefly outline advantages and limitations of the work presented.
+This section summarizes the results and may briefly outline advantages and 
+limitations of the work presented.
 
 ## References
