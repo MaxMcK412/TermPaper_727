@@ -16,6 +16,8 @@ library(tidyverse)
 
 ## Introduction
 
+Git Repo: https://github.com/MaxMcK412/TermPaper_727.git
+
 Many political observers have pointed to an inflated youth turnout as the reason
 for the Democrats’ strong performance in the 2022 midterm election results 
 (Tufts). We do a top-line comparison of turnout in each midterm followed by a 
@@ -33,7 +35,7 @@ state on "Statista.com," which did the work of gathering turnout data from each
 states Secretary of State office. Similarly, we found the 2014 midterm turnout
 data from "electproject.org," which also collected the data from Secretary of
 State offices. Finally,the 2022 turnout data is also from 
-"electproject.orgthefulcrum.us." Finally, we found youth turnout data for 2014 &
+"electproject.org" Finally, we found youth turnout data for 2014 &
 2018 from "circle.tufts.edu," which were estimates collected from exit polls.
 
 We then collected all of this data into one Excel spreadsheet. We organized the
@@ -67,21 +69,24 @@ that show relationships, model results and/or clustering, PCA, etc.
 ```{r}
 ## Visualizing the turnout in 2022
 plot_usmap(data = SURV727_Final, values = "turnout_22", color = "black") + 
-scale_fill_continuous(name = "2022 Turnout Percentage", label = scales::comma) + 
+scale_fill_continuous(low = "red", high = "green",
+                      name = "2022 Turnout Percentage", label = scales::comma) + 
   theme(legend.position = "right")
 ```
 
 ```{r}
 ## Visualizing the turnout in 2018
 plot_usmap(data = SURV727_Final, values = "turnout_18", color = "black") + 
-scale_fill_continuous(name = "2018 Turnout Percentage", label = scales::comma) + 
+scale_fill_continuous(low = "red", high = "green",
+                      name = "2018 Turnout Percentage", label = scales::comma) + 
   theme(legend.position = "right")
 ```
 
 ```{r}
 ## Visualizing the turnout in 2014
 plot_usmap(data = SURV727_Final, values = "turnout_14", color = "black") + 
-scale_fill_continuous(name = "2014 Turnout Percentage", label = scales::comma) + 
+scale_fill_continuous(low = "red", high = "green",
+                      name = "2014 Turnout Percentage", label = scales::comma) + 
   theme(legend.position = "right")
 ```
 
@@ -91,7 +96,8 @@ SURV727_Final$diff_1418 <- SURV727_Final$turnout_18 - SURV727_Final$turnout_14
 
 plot_usmap(data = SURV727_Final, values = "diff_1418", color = "black") + 
   scale_fill_continuous(low = "red", high = "green", 
-                name = "14/18 Difference Percentage", label = scales::comma) + 
+                name = "14/18 Difference Percentage", label = scales::comma, 
+                limits = c(-25, 25)) + 
   theme(legend.position = "right")
 ```
 
@@ -101,7 +107,8 @@ SURV727_Final$diff_1822 <- SURV727_Final$turnout_22 - SURV727_Final$turnout_18
 
 plot_usmap(data = SURV727_Final, values = "diff_1822", color = "black") + 
   scale_fill_continuous(low = "red", high = "green", 
-                  name = "18/22 Difference Percentage", label = scales::comma) + 
+                  name = "18/22 Difference Percentage", label = scales::comma,
+                  limits = c(-25,25)) + 
   theme(legend.position = "right")
 ```
 
@@ -111,7 +118,8 @@ SURV727_Final$youthdiff_1418 <- SURV727_Final$youth_turnout_14 - SURV727_Final$y
 
 plot_usmap(data = SURV727_Final, values = "youthdiff_1418", color = "black") + 
 scale_fill_continuous(low = "red", high = "green", 
-            name = "14/18 Youth Difference Percentage", label = scales::comma) + 
+            name = "14/18 Youth Difference Percentage", label = scales::comma,
+            limits = c(-25,25))+ 
   theme(legend.position = "right")
 ```
 
@@ -151,3 +159,7 @@ us a full picture. In the few States we did see exit polls for, it seems like
 youth turnout was probably slightly lower than 2018. 
 
 ## References
+https://www.electproject.org/2022g
+https://circle.tufts.edu/latest-research/2018-youth-voter-turnout-
+increased-every-state
+https://www.census.gov/topics/public-sector/voting.html
